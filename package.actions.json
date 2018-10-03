@@ -1,0 +1,5 @@
+{
+  "name": "@qontu/component-store/actions",
+  "main": "index.js",
+  "types": "index.d.ts"
+}
