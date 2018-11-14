@@ -6,7 +6,7 @@
   "private": false,
   "scripts": {
     "tsc": "tsc",
-    "build": "rm -rf ./dist && npm run tsc && cp package.json dist/ && cp package.actions.json dist/actions/package.json",
+    "build": "rm -rf ./dist && npm run tsc && cp package.json dist/ && cp package.actions.json dist/actions/package.jsonrimraf ./dist && npm run tsc && copyfiles ./package.json ./dist/ && copyfiles ./package.actions.json ./dist/actions/package.json",
     "publicate": "npm run build && cd dist && npm publish"
   },
   "author": {
@@ -24,7 +24,9 @@
   },
   "devDependencies": {
     "@types/node": "^10.11.3",
+    "copyfiles": "^2.1.0",
     "prettier": "^1.14.3",
+    "rimraf": "^2.6.2",
     "rxjs": "^6.3.3",
     "tslint": "^5.11.0",
     "typescript": "^3.1.1"
