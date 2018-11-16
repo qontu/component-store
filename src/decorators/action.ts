@@ -1,11 +1,10 @@
 import { ensureStoreMetadata, ActionType } from "./internals";
 
-export function Action(...actionsClasses: ActionType[]) {
+export function Action(actionsClass: any) {
   return function(target: any, name: string, descriptor: TypedPropertyDescriptor<any>) {
     const meta = ensureStoreMetadata(target.constructor);
 
-    for (const klass of actionsClasses) {
-      const { type } = new klass();
+      const { type } = new actionsClass();
 
       if (meta.actions[type]) {
         throw new Error(
@@ -14,10 +13,9 @@ export function Action(...actionsClasses: ActionType[]) {
       }
 
       meta.actions[type] = {
-        action: klass,
+        action: actionsClass,
         fn: name,
         type,
       };
     }
-  };
 }

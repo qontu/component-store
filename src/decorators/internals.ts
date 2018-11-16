@@ -3,7 +3,7 @@ import { Reducer } from "../store";
 export const STORE_ACTIONS_META = Symbol("@qontu/store");
 
 export interface ActionType {
-  new (...args: any[]): any;
+  new (args: any[]): any;
 }
 export interface StoreMetadata<S, Actions> {
   initialState?: S;
