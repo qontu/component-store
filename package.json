@@ -6,7 +6,7 @@
   "private": false,
   "scripts": {
     "tsc": "tsc",
-    "build": "rimraf ./dist && npm run tsc && copyfiles ./package.json ./dist/ && copyfiles ./package.actions.json ./dist/actions/package.json",
+    "build": "shx rm -rf ./dist && npm run tsc && shx cp ./package.json ./dist && shx cp ./package.actions.json ./dist/actions/package.json",
     "publicate": "npm run build && cd dist && npm publish"
   },
   "author": {
@@ -24,13 +24,12 @@
   },
   "devDependencies": {
     "@types/node": "^10.12.21",
-    "rimraf": "^2.6.2",
-    "copyfiles": "^2.1.0",
+    "immer": "^2.0.0",
     "prettier": "^1.16.4",
     "rxjs": "^6.4.0",
+    "shx": "^0.3.2",
     "tslint": "^5.12.1",
-    "typescript": "^3.3.1",
-    "immer": "^2.0.0"
+    "typescript": "^3.3.1"
   },
   "license": "MIT"
 }
