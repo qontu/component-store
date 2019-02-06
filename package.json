@@ -2,7 +2,7 @@
   "name": "@qontu/component-store",
   "main": "index.js",
   "types": "index.d.ts",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "private": false,
   "scripts": {
     "tsc": "tsc",

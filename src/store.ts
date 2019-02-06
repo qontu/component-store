@@ -26,20 +26,19 @@ export class Store<S, Actions = any> {
   }
 
   dispatch(action: { type: string; payload?: any }): void {
+    const draft = createDraft(this.store.getValue());
+    const maybeNewState = this.currentReducer(draft as S, action);
+    const newState = isDraft(maybeNewState) || maybeNewState == null ? finishDraft(draft) : maybeNewState;
+
     if (this.options.debug) {
       console.log(
         `ACTION DISPATCHED: ${action.type}`,
         `::Current state:`,
         this.store.getValue(),
         `::Next state:`,
-        this.currentReducer(this.store.getValue(), action),
+        newState,
       );
     }
-
-    const draft = createDraft(this.store.getValue());
-    const maybeNewState = this.currentReducer(draft as S, action);
-
-    const newState = isDraft(maybeNewState) || maybeNewState == null ? finishDraft(draft) : maybeNewState;
 
     this.store.next(newState);
   }
@@ -48,6 +47,7 @@ export class Store<S, Actions = any> {
     return this.store$.pipe(
       map(select),
       distinctUntilChanged(),
+      // shareReplay(1), // TODO(toni): implement it
     );
   }
 
@@ -60,10 +60,10 @@ export class Store<S, Actions = any> {
     const reducer = this.reducers.inst;
 
     if (meta) {
-      return reducer[meta.fn](this.store.getValue(), action);
+      return reducer[meta.fn](state, action);
     }
 
-    return this.store.getValue();
+    return state;
   }
 }
 
