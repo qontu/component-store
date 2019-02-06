@@ -2,6 +2,7 @@
   "extends": "tslint:recommended",
   "rules": {
     "arrow-return-shorthand": true,
+    "arrow-parens": false,
     "callable-types": true,
     "class-name": true,
     "comment-format": [true, "check-space"],

@@ -1,9 +1,9 @@
 import { ensureStoreMetadata } from './internals';
 
-export function Store<TState>(initialState?: TState): (target: () => any) => void;
-export function Store(initialState?: any): (target: () => any) => void;
-export function Store(initialState: any = {}) {
-  return (target: () => any) => {
+export function Store<TState>(initialState?: TState): ClassDecorator;
+export function Store(initialState?: any): ClassDecorator;
+export function Store(initialState: any = {}): ClassDecorator {
+  return target => {
     const meta = ensureStoreMetadata(target);
     meta.initialState = initialState;
   };
