@@ -1,8 +1,9 @@
-import { Observable, BehaviorSubject } from "rxjs";
-import { distinctUntilChanged, map } from "rxjs/operators";
-import { ensureStoreMetadata, StoreMetadata } from "./decorators/internals";
+import { createDraft, finishDraft } from 'immer';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { distinctUntilChanged, map } from 'rxjs/operators';
+import { ensureStoreMetadata, StoreMetadata } from './decorators/internals';
 
-const INITIAL_STATE = "___INITIALIZE_STATE___";
+const INITIAL_STATE = '___INITIALIZE_STATE___';
 
 export class Store<S, Actions = any> {
   private store: BehaviorSubject<S>;
@@ -35,7 +36,10 @@ export class Store<S, Actions = any> {
       );
     }
 
-    this.store.next(this.currentReducer(this.store.getValue(), action));
+    const draft = createDraft(this.store.getValue());
+    const newState = finishDraft(this.currentReducer(draft as S, action));
+
+    this.store.next(newState);
   }
 
   select<T>(select: (store: S) => T): Observable<T> {
