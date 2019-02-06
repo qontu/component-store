@@ -1,7 +1,7 @@
-import { ensureStoreMetadata, ActionType } from "./internals";
+import { ActionType, ensureStoreMetadata } from './internals';
 
 export function Action(...actionsClasses: ActionType[]) {
-  return function(target: any, name: string, descriptor: TypedPropertyDescriptor<any>) {
+  return (target: any, name: string, descriptor: TypedPropertyDescriptor<any>) => {
     const meta = ensureStoreMetadata(target.constructor);
 
     for (const klass of actionsClasses) {

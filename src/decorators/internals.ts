@@ -1,10 +1,8 @@
-import { Reducer } from "../store";
+import { Reducer } from '../store';
 
-export const STORE_ACTIONS_META = Symbol("@qontu/store");
+export const STORE_ACTIONS_META = Symbol('@qontu/component-store');
 
-export interface ActionType {
-  new (...args: any[]): any;
-}
+export type ActionType = new (...args: any[]) => any;
 export interface StoreMetadata<S, Actions> {
   initialState?: S;
   actions: ActionsMeta;
