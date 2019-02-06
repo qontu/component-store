@@ -2,7 +2,7 @@
   "name": "@qontu/component-store",
   "main": "index.js",
   "types": "index.d.ts",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "private": false,
   "scripts": {
     "tsc": "tsc",
@@ -20,7 +20,8 @@
   ],
   "peerDependencies": {
     "rxjs": "^6.3.0",
-    "tslib": "^1.9.0"
+    "tslib": "^1.9.0",
+    "immer": "^2.0.0"
   },
   "devDependencies": {
     "@types/node": "^10.12.21",
