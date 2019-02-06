@@ -1,4 +1,4 @@
-import { createDraft, finishDraft } from 'immer';
+import { createDraft, finishDraft, isDraft } from 'immer';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { distinctUntilChanged, map } from 'rxjs/operators';
 import { ensureStoreMetadata, StoreMetadata } from './decorators/internals';
@@ -37,7 +37,9 @@ export class Store<S, Actions = any> {
     }
 
     const draft = createDraft(this.store.getValue());
-    const newState = finishDraft(this.currentReducer(draft as S, action));
+    const maybeNewState = this.currentReducer(draft as S, action);
+
+    const newState = isDraft(maybeNewState) || maybeNewState == null ? finishDraft(draft) : maybeNewState;
 
     this.store.next(newState);
   }
