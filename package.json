@@ -6,7 +6,8 @@
   "private": false,
   "scripts": {
     "tsc": "tsc",
-    "build": "shx rm -rf ./dist && npm run tsc && shx cp ./package.json ./dist && shx cp ./package.actions.json ./dist/actions/package.json",
+    "build": "shx rm -rf ./dist && npm run tsc && npm run copy-files",
+    "copy-files": "shx cp ./README.md ./dist && shx cp ./package.json ./dist && shx cp ./package.actions.json ./dist/actions/package.json",
     "publicate": "npm run build && cd dist && npm publish"
   },
   "author": {
