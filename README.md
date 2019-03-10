@@ -4,7 +4,7 @@ Inspired (semi-forked) of https://github.com/amcdnl/ngrx-actions
 
 The mission of this (another more... :laughing:) `store` is to maintain the state of a component (not the wide app).
 
-I have been searching for one and I didn't find any... then, I created it :sweet_smile:
+I have been searching for one and I didn't find any... then, I created it :sweat_smile:
 
 ## Dependencies
 
