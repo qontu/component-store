@@ -1,1 +1,1 @@
-export { Store, Reducer } from "./store";
+export { Store, forComponent } from './store';

@@ -7,7 +7,7 @@ export interface StoreMetadata<S, Actions> {
   initialState?: S;
   actions: ActionsMeta;
   // effects: ActionsMeta;
-  inst: Record<string, Reducer>;
+  inst: Record<string, Reducer<S>>;
 }
 
 export interface ActionMeta {

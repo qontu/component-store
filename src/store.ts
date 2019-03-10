@@ -40,7 +40,7 @@ export class Store<S, Actions = any> {
       );
     }
 
-    this.store.next(newState);
+    this.store.next(newState as S);
   }
 
   select<T>(select: (store: S) => T): Observable<T> {
@@ -51,7 +51,7 @@ export class Store<S, Actions = any> {
     );
   }
 
-  currentReducer(state: S, action: Action) {
+  private currentReducer(state: S, action: Action) {
     if (action.type === INITIAL_STATE) {
       return this.reducers.initialState;
     }
@@ -71,8 +71,32 @@ export class Store<S, Actions = any> {
 //   return new Store<T, S>(reducers);
 // }
 
-export type Reducer = (state: any, action: Action) => any;
-export interface Action {
+export type Reducer<S> = (state: S, action: Action) => S;
+interface Action {
   type: string;
   payload?: any;
+}
+
+type Klass = new (...args: any[]) => any;
+
+interface Provider<S> {
+  provide: typeof Store;
+  useFactory?: (reducer: Klass) => Store<S>;
+  useValue?: Klass;
+  deps?: Klass[];
+}
+
+export function forComponent<S = any>(reducer: Klass): Provider<S>[] {
+  return [
+    { provide: reducer, useValue: reducer },
+    {
+      provide: Store,
+      useFactory: newStore,
+      deps: [reducer],
+    },
+  ];
+}
+
+export function newStore<S>(reducer: Klass): Store<S> {
+  return new Store(reducer);
 }
