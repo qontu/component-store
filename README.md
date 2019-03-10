@@ -1,3 +1,3 @@
 # Component Store
 
-Inspired (semi-forked) by https://github.com/amcdnl/ngrx-actions
+Inspired (semi-forked) of https://github.com/amcdnl/ngrx-actions
