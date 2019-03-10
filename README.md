@@ -23,14 +23,22 @@ You can see an example [here](./playground/src/app/components/button)
 Because it's a powerful inmutable state tree, it allow us to do:
 
 ```ts
-@Store<UserListState>({
+interface UserListState {
   users: User[],
+  usersMap: Record<number, User>,
+}
+
+
+@Store<UserListState>({
+  users: [],
+  usersMap: {},
 })
 export class UserListStore {
 
   @Action(Update)
   updateUsingImmer(state: UserListState, { user  }: Update) {
-    state.users[user.id] = user;
+    const userToUpdate = state.users.find(({ id }) => id === user.id);
+    Object.assign(userToUpdate, user);
   }
 
   @Action(Update)
@@ -40,6 +48,24 @@ export class UserListStore {
       users: [
         ...state.users.filter(({ id }) => id !== user.id),
         user,
+      ]
+    }
+  }
+
+  // Update an object-map
+
+  @Action(Update)
+  updateUsingImmer(state: UserListState, { user  }: Update) {
+    state.usersMap[user.id] = user;
+  }
+
+  @Action(Update)
+  updateWithoutImmer(state: UserListState, { user  }: Update) {
+    return {
+      ...state,
+      usersMap: [
+        ...state.usersMap,
+        [user.id]: user,
       ]
     }
   }
